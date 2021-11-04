@@ -93,21 +93,25 @@ app.post("/download", function (req, res) {
 })
 
 app.post('/handleUpload', function (req, res) {
-    if (isLoggedIn) {
-        let form = formidable({})
-        form.keepExtensions = true
-        form.multiples = true
-        form.uploadDir = __dirname + '/static/upload/'
+    try {
+        if (isLoggedIn) {
+            let form = formidable({})
+            form.keepExtensions = true
+            form.multiples = true
+            form.uploadDir = __dirname + '/static/upload/'
+            form.parse(req, function (err, fields, files) {
+                if (Array.isArray(files.uploadedFile)) filesArray.push(...files.uploadedFile.map(file => getFileInfo(file)))
+                else {
+                    filesArray.push(getFileInfo(files.uploadedFile))
+                }
+                res.redirect("/fileManager")
+            });
+        } else res.redirect('/login')
+    } catch (e) {
+        console.log(e)
+        res.render("/UploadSite.hbs")
+    }
 
-        form.parse(req, function (err, fields, files) {
-            if (Array.isArray(files.uploadedFile)) filesArray.push(...files.uploadedFile.map(file => getFileInfo(file)))
-            else {
-                filesArray.push(getFileInfo(files.uploadedFile))
-            }
-
-            res.redirect("/fileManager")
-        });
-    } else res.redirect('/login')
 });
 
 app.post("/login", function (req, res) {
