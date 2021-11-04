@@ -1,0 +1,36 @@
+<div id="left">
+    <h3>File Menger</h3>
+    <a href="/deleteAll">Delete All Data</a>
+</div>
+<div id="right">
+    <table>
+        <tr>
+            <th> ID </th>
+            <th> Icon </th>
+            <th> Size </th>
+            <th> MIME Type </th>
+            <th> Info </th>
+            <th> Download </th>
+        </tr>
+        {{#each files}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td><img class="icon" src="{{this.icon}}"></td>
+            <td>{{this.size}}</td>
+            <td>{{this.type}}</td>
+            <form method="post" action="/info">
+                <input type="hidden" name="id" value={{this.id}}>
+                <td><button type="submit">INFO</button></td>
+            </form>
+            <form method="post" action="/download">
+                <input type="hidden" name="id" value={{this.id}}>
+                <td><button type="submit">DOWNLOAD</button></td>
+            </form>
+            <form method="post" action="/delete">
+                <input type="hidden" name="id" value={{this.id}}>
+                <td><button type="submit">DELETE</button></td>
+            </form>
+        </tr>
+        {{/each}}
+    </table>
+</div>

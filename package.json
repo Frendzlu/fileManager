@@ -1,0 +1,14 @@
+{
+  "name": "filemanager",
+  "version": "1.0.0",
+  "description": "what is this stuff",
+  "main": "server.js",
+  "dependencies": {
+    "express-handlebars": "^5.3.4",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
+    "cookie-parser": "^1.4.5"
+  },
+  "devDependencies": {},
+  "author": "mateusz francik"
+}
